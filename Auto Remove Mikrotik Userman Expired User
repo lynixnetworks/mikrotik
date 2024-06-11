@@ -17,12 +17,12 @@
 :local curtime [$timeint t=$time];
 
 :foreach i in [ /user-manager/user-profile/find state=used ] do={
-	:local userprofile [user-manager/user-profile/get value-name=user number=$i];
-	:local expiredtime [user-manager/user-profile/get value-name=end-time number=$i]; 
-	:local olahdatamentah $expiredtime;
-	:local tanggalexpired [ :pick $olahdatamentah 0 10];
-	:local waktuexpired [ :pick $olahdatamentah 11 19];
-	:local tanggalexpiredconverted [$dateint d=$tanggalexpired];
+  :local userprofile [user-manager/user-profile/get value-name=user number=$i];
+  :local expiredtime [user-manager/user-profile/get value-name=end-time number=$i]; 
+  :local olahdatamentah $expiredtime;
+  :local tanggalexpired [ :pick $olahdatamentah 0 10];
+  :local waktuexpired [ :pick $olahdatamentah 11 19];
+  :local tanggalexpiredconverted [$dateint d=$tanggalexpired];
   :local waktuexpiredconverted [$timeint t=$waktuexpired];
 	:if (($tanggalexpiredconverted < $today and $waktuexpiredconverted < $curtime) or ($tanggalexpiredconverted < $today and $waktuexpiredconverted > $curtime) or ($tanggalexpiredconverted = $today and $waktuexpiredconverted < $curtime)) do={
 			/user-manager/user/remove [find name=$userprofile];
